@@ -1,0 +1,100 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Histogramme devis par annee{% endblock %}
+
+{% block body %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div style="display: flex;">
+        <!-- Left side - Form -->
+        <div style="flex: 1;">
+            <h2>Histogramme de devis annuel</h2>
+            <form id="dataForm">
+                <label for="dataInput">Annee :</label>
+                <input type="text" id="dataInput" name="dataInput" placeholder="Enter data values">
+                <button onclick="displayHistoData()">Voir</button>
+            </form>
+        </div>
+
+        <!-- Right side - Histogram -->
+        <div style="flex: 2;">
+            <h2>Histogram</h2>
+            <canvas id="histogramChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+
+    <script>
+
+        function getProperDatas(annee){
+            var xhr = new XMLHttpRequest();
+            var baseUrl = '{{ app.request.schemeAndHttpHost }}'
+            var endpoint = '/devis/admin/display/board?annee=';
+            var value = encodeURIComponent(annee)
+            var urlService = baseUrl + endpoint + value
+            xhr.open('GET',urlService);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onload = function() {
+                if(xhr.status === 200){
+                    var dataValues = JSON.parse(xhr.responseText);
+                    console.log(dataValues);
+                    updateHistogram(datavalues);
+                }
+                else{
+                    console.error('Ne peut pas obtenir les donnees');
+                }
+            };
+            xhr.onerror = function() {
+                console.error('Error unexpected while loading Marque');
+            }
+            xhr.send();
+        }
+
+        // Initialize the chart with empty data
+        var canvas = document.getElementById('histogramChart');
+        canvas.width = 400;
+        canvas.height = 200;
+        var ctx = document.getElementById('histogramChart').getContext('2d');
+        var histogramChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                datasets: [{
+                    label: 'Histogram',
+                    data: [1000],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        // Update histogram chart with new data
+        function updateHistogram(dataValues) {
+            var months = Array.from({ length: 12 }, (_, i) => i + 1);
+            var totalDevis = Array.from({ length: 12 }, () => 0);
+
+            dataValues.forEach(function(item) {
+                var monthIndex = parseInt(item.mois, 10)-1;
+                totalDevis[monthIndex] = parseFloat(item.total_devis);
+            });
+
+            histogramChart.data.labels = months;
+            histogramChart.data.datasets[0].data = totalDevis;
+            histogramChart.update();
+        }
+
+        function displayHistoData(){
+            var annee = document.getElementById('dataInput').value;
+            getProperDatas(annee);
+        }
+    </script>
+
+{% endblock %}

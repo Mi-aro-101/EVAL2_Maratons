@@ -25,9 +25,6 @@ class TravauxMaison
     #[ORM\JoinColumn(nullable: false)]
     private ?Travaux $travaux = null;
 
-    #[ORM\Column]
-    private ?float $duree = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -65,18 +62,6 @@ class TravauxMaison
     public function setTravaux(?Travaux $travaux): static
     {
         $this->travaux = $travaux;
-
-        return $this;
-    }
-
-    public function getDuree(): ?float
-    {
-        return $this->duree;
-    }
-
-    public function setDuree(float $duree): static
-    {
-        $this->duree = $duree;
 
         return $this;
     }

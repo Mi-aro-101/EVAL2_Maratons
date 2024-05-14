@@ -1,29 +1,12 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}TypeFinition index{% endblock %}
+{% block title %}Travaux index{% endblock %}
 
 {% block body %}
-<style>
-    .myinfobox{
-        border-radius : 20px;
-        transition: transform 0.3s ease
-    }
-    .myinfobox:hover{
-        transform: scale(1.05);
-        cursor: pointer;
-    }
-    a{
-        color: black;
-    }
-    a:hover{
-        text-decoration: none;
-    }
-</style>
-
     <div class="card">
         <div class="header">
             <h2>
-                Liste de vos type de finition
+                Liste de vos devis
             </h2>
             <ul class="header-dropdown m-r--5">
                 <li class="dropdown">
@@ -42,63 +25,67 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Designation</th>
-                        <th>Pourcentage</th>
-                        <th>Action</th>
+                        <th>Description</th>
+                        <th>PrixUnitaire</th>
+                        <th>Unite</th>
+                        <th>Code</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for type_finition in type_finitions %}
-
+                    {% for travaux in travauxes %}
                         <tr>
-                            <td>{{ type_finition.designation }}</td>
-                            <td>{{ type_finition.pourcentage|number_format(2, ',', ' ') }} %</td>
+                            <td>{{ travaux.description }}</td>
+                            <td>{{ travaux.prixUnitaire|number_format(2, ',', ' ') }} Ar </td>
+                            <td>{{ travaux.getUnite().getDesignation() }}</td>
+                            <td>{{ travaux.code }}</td>
                             <td>
-                                <a href="{{ path('app_type_finition_edit', {'id': type_finition.id}) }}"><button class="btn btn-warning">Modifier</button></a>
+                                {# <a href="{{ path('app_travaux_show', {'id': travaux.id}) }}"><button>show<</a> #}
+                                <a href="{{ path('app_travaux_edit', {'id': travaux.id}) }}"><button class="btn btn-warning">Modifier</button></a>
                             </td>
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="4">Vous n'avez pas encore de type de finition actuellement</td>
+                            <td colspan="4">Vous n'avez pas encore de travaux actuellement</td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
             <div =calss="pagin">
-                {{ knp_pagination_render(type_finitions)}}
+                {{ knp_pagination_render(travauxes)}}
             </div>
         </div>
     </div>
 
-    {# <h1>TypeFinition index</h1>
-
-    <table class="table">
+    {# <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Designation</th>
-                <th>Pourcentage</th>
+                <th>Description</th>
+                <th>PrixUnitaire</th>
+                <th>Code</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for type_finition in type_finitions %}
+        {% for travaux in travauxes %}
             <tr>
-                <td>{{ type_finition.id }}</td>
-                <td>{{ type_finition.designation }}</td>
-                <td>{{ type_finition.pourcentage }}</td>
+                <td>{{ travaux.id }}</td>
+                <td>{{ travaux.description }}</td>
+                <td>{{ travaux.prixUnitaire }}</td>
+                <td>{{ travaux.code }}</td>
                 <td>
-                    <a href="{{ path('app_type_finition_show', {'id': type_finition.id}) }}">show</a>
-                    <a href="{{ path('app_type_finition_edit', {'id': type_finition.id}) }}">edit</a>
+                    <a href="{{ path('app_travaux_show', {'id': travaux.id}) }}">show</a>
+                    <a href="{{ path('app_travaux_edit', {'id': travaux.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
-    </table>
+    </table> #}
 
-    <a href="{{ path('app_type_finition_new') }}">Create new</a> #}
+    {# <a href="{{ path('app_travaux_new') }}">Create new</a> #}
 {% endblock %}

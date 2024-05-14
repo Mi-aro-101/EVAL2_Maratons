@@ -30,19 +30,19 @@
                         <th>Date de devis</th>
                         <th>Date debut des travaux</th>
                         <th>Prix</th>
-                        <th>Paiement effectues</th>
+                        <th>% Paiement effectues</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for devi in devis %}
                         <tr>
-                            <td>{{ devi.dateDevis ? devi.dateDevis|date('Y-m-d') : '' }}</td>
-                            <td>{{ devi.dateDebutTravaux ? devi.dateDebutTravaux|date('Y-m-d') : '' }}</td>
-                            <td>{{ devi.prix|number_format(2, ',', ' ') }} Ar</td>
-                            <td>{{ devi.getPaimentEffectues()|number_format(2, ',', ' ') }} Ar</td>
+                            <td>{{ devi[0].dateDevis ? devi[0].dateDevis|date('Y-m-d') : '' }}</td>
+                            <td>{{ devi[0].dateDebutTravaux ? devi[0].dateDebutTravaux|date('Y-m-d') : '' }}</td>
+                            <td>{{ devi[0].prix|number_format(2, ',', ' ') }} Ar</td>
+                            <td>{{ devi.pourcentage_paye|number_format(2, ',', ' ') }} %</td>
                             <td>
-                                <a href="{{ path('app_devis_details', {'id': devi.id}) }}"><button class="btn bg-green waves-effect">Details</button></a>
+                                <a href="{{ path('app_devis_details', {'id': devi[0].id}) }}"><button class="btn bg-green waves-effect">Details</button></a>
                             </td>
                         </tr>
                     {% else %}

@@ -79,7 +79,8 @@
               <!-- Dropdown menu -->
             </div>
             <div class="body">
-              {{ value[0].description }}
+              {{ value[0].description }} <br>
+              Duree de construction : <strong>{{ value[0].getDureeConstruction() }} jours </strong> <br><hr>
               <!-- Prix -->
               <center><strong>Prix : </strong></center>
               <center><h3 style="color : #714ed9">{{ value[0].getPrixTotal()|number_format(2, '.', ' ') }} Ar</h3></center>

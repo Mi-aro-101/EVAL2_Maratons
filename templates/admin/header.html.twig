@@ -1,6 +1,6 @@
 
     <!-- Page Loader -->
-    <div class="page-loader-wrapper">
+    {# <div class="page-loader-wrapper">
         <div class="loader">
             <div class="preloader">
                 <div class="spinner-layer pl-red">
@@ -14,7 +14,7 @@
             </div>
             <p>Please wait...</p>
         </div>
-    </div>
+    </div> #}
     <!-- #END# Page Loader -->
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
@@ -266,24 +266,50 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li>
-                        <a href="index.html">
-                            <i class="material-icons">home</i>
-                            <span>Home</span>
+                    <li{% if idPage==1 %} {{ "class=active" }} {% endif %} >
+                        <a href="{{ path('app_devis_board_admin') }}">
+                            <i class="material-icons">dashboard</i>
+                            <span>Dashboard</span>
                         </a>
                     </li>
                     <li>
-                    <li {% if idPage==3 or idPage==4 %} {{ "class=active" }} {% endif %}>
-                    <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">work</i>
-                        <span>Devis</span>
-                    </a>
-                    <ul class="ml-menu">
-                        <li {% if idPage==4 %} {{ "class=active" }} {% endif %}>
-                            <a href="{{ path('app_devis_en_cours') }}">Devis en cours</a>
+                        <li {% if idPage==3 or idPage==4 %} {{ "class=active" }} {% endif %}>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">work</i>
+                                <span>Devis</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li {% if idPage==4 %} {{ "class=active" }} {% endif %}>
+                                    <a href="{{ path('app_devis_liste_admin') }}">Devis en cours</a>
+                                </li>
+                            </ul>
                         </li>
-                    </ul>
                     </li>
+                    <li>
+                        <li {% if idPage==5 %} {{ "class=active" }} {% endif %}>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">format_paint</i>
+                                <span>Travaux</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li {% if idPage==5 %} {{ "class=active" }} {% endif %}>
+                                    <a href="{{ path('app_travaux_index') }}">Voir</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </li>
+                    <li>
+                        <li {% if idPage==6 %} {{ "class=active" }} {% endif %}>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">star</i>
+                                <span>Type de finition</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li {% if idPage==6 %} {{ "class=active" }} {% endif %}>
+                                    <a href="{{ path('app_type_finition_index') }}">Voir</a>
+                                </li>
+                            </ul>
+                        </li>
                     </li>
                 </ul>
             </div>

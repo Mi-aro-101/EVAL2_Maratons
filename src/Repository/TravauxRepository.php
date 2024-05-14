@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Travaux;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<Travaux>
@@ -16,9 +18,18 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TravauxRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private PaginatorInterface $paginator)
     {
         parent::__construct($registry, Travaux::class);
+    }
+
+    public function paginateTravaux(int $page, int $limit) : PaginationInterface
+    {
+        return $this->paginator->paginate(
+            $this->createQueryBuilder('r'),
+            $page,
+            $limit
+        );
     }
 
     //    /**

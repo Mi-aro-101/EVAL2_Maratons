@@ -21,6 +21,43 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/devis')]
 class DevisController extends AbstractController
 {
+    #[IsGranted("ROLE_ADMIN", message: "Cette page est innaccessible")]
+    #[Route('/admin/tab/board', name: 'app_devis_board_admin', methods: ['get'])]
+    public function loadFormDashboard(): Response
+    {
+        return $this->render('charts/admin_dashboard.html.twig', [
+            'idPage' => 1
+        ]);
+    }
+
+    #[Route('/admin/display/board', name: 'app_display_board', methods: ['get'])]
+    public function loadDashBoard(Request $request, DevisRepository $devisRepository, EntityManagerInterface $entityManager) : Response
+    {
+        $date = $request->query->get('annee');
+        $stats = $devisRepository->getDevisTotalParMoisParAnnee($date, $entityManager);
+        $result = json_encode($stats);
+        $response = new Response($result);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    #[IsGranted("ROLE_ADMIN", message: "Cette page est innaccessible")]
+    #[Route('/admin/tab/liste', name: 'app_devis_liste_admin', methods: ['get'])]
+    public function getListeDevisAdmin(Request $request, DevisRepository $devisRepository) : Response
+    {
+        $page = $request->query->getInt('page', 1);
+        $today = date('Y-m-d H:i:s');
+        $limit = 5;
+        $devis = $devisRepository->findDevisAlongPaiementPourcenage($page, $limit, $today);
+        // dd($devis);
+        $maxPage = ceil($devis->getTotalItemCount() / $limit);
+        return $this->render('devis/devis_cours.html.twig', [
+            'devis' => $devis,
+            'maxPage' => $maxPage,
+            'page' => $page,
+            'idPage' => 4
+        ]);
+    }
 
     #[IsGranted("ROLE_ADMIN", message: "Cette page est innaccessible")]
     #[Route('/details/{id}', name: 'app_devis_details', methods: ['GET'])]

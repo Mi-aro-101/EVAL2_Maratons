@@ -34,6 +34,18 @@
     {% endblock %}
 
   </head>
+  <style>
+    .pagin{
+        display: flex; /* Use Flexbox */
+        justify-content: center; /* Center content horizontally */
+        align-items: center; /* Center content vertically */
+        height: 10vh; /* Adjust height as needed */
+        position: sticky;
+        bottom: 0;
+        width: 100%;
+        padding: 10px;
+    }
+</style>
 
   <body class="theme-red">
     {% include 'admin/header.html.twig' %}

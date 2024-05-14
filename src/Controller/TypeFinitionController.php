@@ -11,18 +11,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/type/finition')]
 class TypeFinitionController extends AbstractController
 {
+    #[IsGranted('ROLE_ADMIN', message: "Cette page n'est pas accessible")]
     #[Route('/', name: 'app_type_finition_index', methods: ['GET'])]
-    public function index(TypeFinitionRepository $typeFinitionRepository, TypeFinitionService $typeFinitionService): Response
+    public function index(Request $request, TypeFinitionRepository $typeFinitionRepository): Response
     {
-        $typeFinitions = $typeFinitionRepository->findAll();
-        $type_finitions = $typeFinitionService->assignColor($typeFinitions);
+        $page = $request->query->getInt('page', 1);
+        $limit = 5;
+        $type_finitions = $typeFinitionRepository->paginateTypeFinition($page, $limit);
+        $maxPage = ceil($type_finitions->getTotalItemCount() / $limit);
         return $this->render('type_finition/index.html.twig', [
             'type_finitions' => $type_finitions,
-            'idPage' => 2
+            'maxPage' => $maxPage,
+            'page' => $page,
+            'idPage' => 6
         ]);
     }
 
@@ -69,6 +75,7 @@ class TypeFinitionController extends AbstractController
         return $this->render('type_finition/edit.html.twig', [
             'type_finition' => $typeFinition,
             'form' => $form,
+            'idPage' => 6
         ]);
     }
 

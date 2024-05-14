@@ -11,15 +11,15 @@ use Doctrine\ORM\Mapping as ORM;
 class TypeMaison
 {
 
-    public function getDureeConstruction() : float
-    {
-        $result = 0;
-        foreach($this->getTravauxMaisons() as $travaux){
-            $result += $travaux->getDuree();
-        }
+    // public function getDureeConstruction() : float
+    // {
+    //     $result = 0;
+    //     foreach($this->getTravauxMaisons() as $travaux){
+    //         $result += $travaux->getDuree();
+    //     }
 
-        return $result;
-    }
+    //     return $result;
+    // }
 
     public function getPrixTotal() : float
     {
@@ -52,6 +52,12 @@ class TypeMaison
      */
     #[ORM\OneToMany(targetEntity: Devis::class, mappedBy: 'typeMaison', orphanRemoval: true)]
     private Collection $devis;
+
+    #[ORM\Column]
+    private ?float $dureeConstruction = null;
+
+    #[ORM\Column]
+    private ?float $surface = null;
 
     public function __construct()
     {
@@ -144,6 +150,30 @@ class TypeMaison
                 $devi->setTypeMaison(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDureeConstruction(): ?float
+    {
+        return $this->dureeConstruction;
+    }
+
+    public function setDureeConstruction(?float $dureeConstruction): static
+    {
+        $this->dureeConstruction = $dureeConstruction;
+
+        return $this;
+    }
+
+    public function getSurface(): ?float
+    {
+        return $this->surface;
+    }
+
+    public function setSurface(?float $surface): static
+    {
+        $this->surface = $surface;
 
         return $this;
     }

@@ -100,6 +100,8 @@ class Devis
     #[ORM\JoinColumn(nullable: false)]
     private ?Client $client = null;
 
+    private ?float $pourcentagePaye = null;
+
     /**
      * @var Collection<int, Paiement>
      */
@@ -260,6 +262,18 @@ class Devis
     public function setDatefin(\DateTimeInterface $datefin): static
     {
         $this->datefin = $datefin;
+
+        return $this;
+    }
+
+    public function getpourcentagePaye(): ?float
+    {
+        return $this->pourcentagePaye;
+    }
+
+    public function setPourcentagePaye(float $pourcentagePaye): static
+    {
+        $this->pourcentagePaye = $pourcentagePaye;
 
         return $this;
     }
