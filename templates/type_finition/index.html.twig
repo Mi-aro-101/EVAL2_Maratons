@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TypeFinition index{% endblock %}
+
+{% block body %}
+<style>
+    .myinfobox{
+        border-radius : 20px;
+        transition: transform 0.3s ease
+    }
+    .myinfobox:hover{
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+    a{
+        color: black;
+    }
+    a:hover{
+        text-decoration: none;
+    }
+</style>
+
+    <div class="block-header">
+        <h1>Felicitation, vous avez passez la premiere etape pour la creation du devis <i class="material-icons">home</i></h1>
+        <bt>
+        <hr>
+        <center><h2>A present il faut choisir un type de <strong>finition</strong> <i class="material-icons">add</i></h2></center><hr>
+    </div>
+
+    <div class="row">
+        {% for key, value in type_finitions %}
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <a href="{{ path('app_devis_new', {'id': key}) }}">
+                <div class="info-box-3 {{ value[1   ] }} hover-expand-effect myinfobox">
+                    <div class="icon">
+                        <i class="material-icons">brightness_low</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">{{ value[0].designation|upper }}</div>
+                        <div class="number">{{ value[0].pourcentage }}%</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+    {# <h1>TypeFinition index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Designation</th>
+                <th>Pourcentage</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for type_finition in type_finitions %}
+            <tr>
+                <td>{{ type_finition.id }}</td>
+                <td>{{ type_finition.designation }}</td>
+                <td>{{ type_finition.pourcentage }}</td>
+                <td>
+                    <a href="{{ path('app_type_finition_show', {'id': type_finition.id}) }}">show</a>
+                    <a href="{{ path('app_type_finition_edit', {'id': type_finition.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_type_finition_new') }}">Create new</a> #}
+{% endblock %}

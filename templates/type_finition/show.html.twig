@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TypeFinition{% endblock %}
+
+{% block body %}
+    <h1>TypeFinition</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ type_finition.id }}</td>
+            </tr>
+            <tr>
+                <th>Designation</th>
+                <td>{{ type_finition.designation }}</td>
+            </tr>
+            <tr>
+                <th>Pourcentage</th>
+                <td>{{ type_finition.pourcentage }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_type_finition_index') }}">back to list</a>
+
+    <a href="{{ path('app_type_finition_edit', {'id': type_finition.id}) }}">edit</a>
+
+    {{ include('type_finition/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Devis index{% endblock %}
+
+{% block body %}
+
+
+    <div class="card">
+        <div class="header">
+            <h2>
+                Liste de vos devis
+            </h2>
+            <ul class="header-dropdown m-r--5">
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">more_vert</i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
+                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="body table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date de devis</th>
+                        <th>Date debut des travaux</th>
+                        <th>Prix</th>
+                        <th colspan="2" style="text-align: center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for devi in devis %}
+                        <tr>
+                            <td>{{ devi.dateDevis ? devi.dateDevis|date('Y-m-d') : '' }}</td>
+                            <td>{{ devi.dateDebutTravaux ? devi.dateDebutTravaux|date('Y-m-d') : '' }}</td>
+                            <td>{{ devi.prix|number_format(2, ',', ' ') }} Ar</td>
+                            <td>
+                                <a href="{{ path('app_paiement_new', {'id': devi.id}) }}"><button class="btn bg-green waves-effect">Paiement</button></a>
+                            </td>
+                            <td>
+                                <a href="{{ path('app_devis_show_pdf', {'id': devi.id}) }}"><button class="btn bg-pink waves-effect">Exporter PDF</button></a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">Vous n'avez pas encore de devis actuellement</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
