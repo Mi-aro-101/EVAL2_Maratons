@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New PointRang{% endblock %}
+
+{% block body %}
+    <h1>Create new PointRang</h1>
+
+    {{ include('point_rang/_form.html.twig') }}
+
+    <a href="{{ path('app_point_rang_index') }}">back to list</a>
+{% endblock %}

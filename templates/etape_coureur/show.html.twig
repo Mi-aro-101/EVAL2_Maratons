@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EtapeCoureur{% endblock %}
+
+{% block body %}
+    <h1>EtapeCoureur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ etape_coureur.id }}</td>
+            </tr>
+            <tr>
+                <th>Arrivee</th>
+                <td>{{ etape_coureur.arrivee ? etape_coureur.arrivee|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_etape_coureur_index') }}">back to list</a>
+
+    <a href="{{ path('app_etape_coureur_edit', {'id': etape_coureur.id}) }}">edit</a>
+
+    {{ include('etape_coureur/_delete_form.html.twig') }}
+{% endblock %}

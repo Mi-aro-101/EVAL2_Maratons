@@ -1,0 +1,23 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}EtapeCourse index{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-6">
+    <div class="card-body">
+    {% for type, message in app.flashes %}
+        <div class="alert alert-{{ type }}">
+            {{ message| join('. ') }}
+        </div>
+    {% endfor %}
+        <h4 class="card-title">Generation ou regeneration de classement</h4>
+        <div class="template-demo">
+            <a href="{{ path('app_generate_classement') }}"><button type="button" class="btn btn-warning">Generer classement</button></a>
+        </div>
+    </div>
+    </div>
+</div>
+
+{% endblock %}

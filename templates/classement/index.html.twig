@@ -1,0 +1,60 @@
+{% extends head %}
+
+{% block title %}Classement index{% endblock %}
+
+{% block body %}
+    <h1>Classement {{ categorie }}</h1>
+
+    <div class="card-body">
+        <h4 class="card-title">Trier par categorie</h4>
+        <form class="form-sample" method="post" action="{{ path('app_trier_classement_categorie') }}">
+        <div class="row">
+            <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Categorie</label>
+                <div class="col-sm-9">
+                <input type="hidden" name="etape" value="{{ etape_id }}">
+                <select class="form-control" name="categorie">
+                    {% for categorie_coureur in categorie_coureurs %}
+                        <option value="{{categorie_coureur.id }}"> {{ categorie_coureur.nomCategorie }} </option>
+                    {% endfor %}
+                </select>
+                </div>
+            </div>
+            </div>
+            <div class="col-md-6">
+            <div class="form-group row">
+                <button type="submit" class="btn btn-info">Trier</button>
+            </div>
+            </div>
+        </div>
+        </form>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Equipe</th>
+                <th>Coureur</th>
+                <th>Rang</th>
+                <th>Point</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for classement in classements %}
+            <tr>
+                <td>{{ classement.coureur.equipe.nomEquipe }}</td>
+                <td>{{ classement.coureur.nomCoureur }}</td>
+                <td>{{ classement.rang }}</td>
+                <td>{{ classement.point }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Pas de classement a afficher</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_classement_par_etape') }}"><button class="btn btn-outline-info btn-fw">Retour</button></a>
+{% endblock %}

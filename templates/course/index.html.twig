@@ -1,0 +1,32 @@
+{% extends head %}
+
+{% block title %}Course index{% endblock %}
+
+{% block body %}
+<div class="row">
+    <h1>Courses disponibles</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>NomCourse</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for course in courses %}
+            <tr>
+                <td>{{ course.nomCourse }}</td>
+                <td>
+                    <a href="{{ path('app_etape_course_by_course', {'id': course.id}) }}"><button class="btn btn-info">Voir etapes</button></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

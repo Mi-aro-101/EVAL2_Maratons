@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Assingner coureur{% endblock %}
+
+{% block body %}
+    <h2>Assigner coureur a une etape</h2>
+    <hr>
+
+    {# {{ include('etape_coureur/_form.html.twig') }} #}
+    <div class="row">
+        <div class="col-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><strong>{{ etape_coureur.etapeCourse.nomEtape }}</strong>
+                        de la course <strong>{{ etape_coureur.etapeCourse.course.nomCourse }}</strong>
+                     </h4>
+                    <form class="forms-sample" name="etape_coureur" method="post" action="{{ path('assigner_coureur') }}">
+                        <div class="form-group">
+                            <input type="hidden" name="etape_course" value="{{ etape_coureur.etapeCourse.id }}">
+                            <label for="exampleSelectGender">Vous choisissez {{ etape_coureur.etapeCourse.nbrCoureur }} coureurs</label>
+                            <select class="form-control" name="coureur[]" id="exampleSelectGender" multiple>
+                                {% for coureur in coureurs %}
+                                    <option value="{{ coureur.id }}">{{ coureur.nomCoureur }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary mr-2">Assigner</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <a href="{{ path('app_etape_course_by_course', {'id': etape_coureur.etapeCourse.course.id}) }}"><button type="button" class="btn btn-outline-info btn-fw">Retour</button></a>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EtapeCoureur{% endblock %}
+
+{% block body %}
+<div class="row">
+    <h3>Course : <strong>{{ etape_course.course.nomCourse }} </strong> <strong>{{ etape_course.nomEtape }} </strong></h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Coureur</th>
+                <th>Equipe</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for etape_coureur in etape_coureurs %}
+            <tr>
+                <td>{{ etape_coureur.coureur.nomCoureur }}</td>
+                <td>{{ etape_coureur.coureur.equipe.nomEquipe }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucun de vos coureurs n'est encore inscrits a cette etape</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+       <a href="{{ path('app_etape_course_by_course', {'id': etape_course.course.id}) }}"><button type="button" class="btn btn-outline-info btn-fw">Retour</button></a>
+</div>
+{% endblock %}

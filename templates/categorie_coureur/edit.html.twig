@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit CategorieCoureur{% endblock %}
+
+{% block body %}
+    <h1>Edit CategorieCoureur</h1>
+
+    {{ include('categorie_coureur/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_categorie_coureur_index') }}">back to list</a>
+
+    {{ include('categorie_coureur/_delete_form.html.twig') }}
+{% endblock %}

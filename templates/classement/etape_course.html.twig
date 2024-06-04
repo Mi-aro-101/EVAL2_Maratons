@@ -1,0 +1,40 @@
+{% extends head %}
+
+{% block title %}EtapeCourse{% endblock %}
+
+{% block body %}
+
+        <h1>Liste des etapes de course</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Etape</th>
+                    <th>Nombre de coureur</th>
+                    <th>Longueur</th>
+                    <th>Depart</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for etape_course in etape_courses %}
+                <tr>
+                    <td>{{ etape_course.nomEtape }}</td>
+                    <td>{{ etape_course.nbrCoureur }}</td>
+                    <td>{{ etape_course.longueur }} km</td>
+                    <td>{{ etape_course.depart ? etape_course.depart|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        <a href="{{ path('app_voir_classement_par_etape', {'id': etape_course.id}) }}"><button class="btn btn-primary">Voir classement</button></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">Cetter course ne contient pas encore d'etape</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <hr>
+
+{% endblock %}

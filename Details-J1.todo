@@ -1,4 +1,35 @@
-Admin :
-    Ajout de place de parking:
-        Simple formulaire : 
-            ☐ Numero de ref parking (Ou simple id prefixe)
+Course :
+    ☐ Etape 1
+    ☐ Etape 2
+    ☐ Etape 3 ...
+
+Etape de course :
+    ☐ Point de classement par rang (1er : 10pts, 2e : 6pts, 3e : 4pts ...)
+    ☐ Firy coureur par equipe (A preciser)
+    ☐ Longueur en km
+    Je suppose :
+        ☐ Date de depart
+
+Equipe :
+    ☐ Coureur 1
+    ☐ Coureur 2
+    ☐ Coureur 3 ...
+
+Coureur : 
+    ☐ Associe a un ou plusieurs categorie
+    ☐ nom
+    ☐ Numero de dossard
+    ☐ Genre
+    ☐ Date de naissance
+
+Categorie de coureur :
+    ☐ Homme
+    ☐ Femme
+    ☐ Junior
+    ☐ Senior ...
+
+Chaque etape => Chaque coureur :
+    ☐ Heure de depart
+    ☐ Heure d'arrivee
+
+Systeme de penalite  ?? :

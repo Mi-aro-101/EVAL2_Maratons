@@ -1,0 +1,92 @@
+{# {{ vainqueur['score'] }}
+{{ vainqueur['nom_equipe'] }}
+{{ categorie.nomCategorie }} #}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Maratons</title>
+</head>
+        <style type='text/css'>
+            body, html {
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                color: black;
+                display: table;
+                font-family: Georgia, serif;
+                font-size: 24px;
+                text-align: center;
+            }
+            .container {
+                border: 20px solid tan;
+                {# width: 750px; #}
+                height: 500px;
+                vertical-align: middle;
+            }
+            .logo {
+                margin-left: 50px;
+                font-family: "Lucida Console", "Courier New", monospace;
+                margin-top : 100px;
+                color: tan;
+                text-align: center;
+            }
+
+            .marquee {
+                color: tan;
+                font-size: 48px;
+                margin: 20px;
+                font-family : Georgia, serif;
+            }
+            .assignment {
+                margin: 20px;
+            }
+            .person {
+                border-bottom: 2px solid black;
+                font-size: 32px;
+                font-style: italic;
+                margin: 20px auto;
+                width: 400px;
+            }
+            .reason {
+                margin: 20px;
+            }
+            .medal{
+                float: right;
+            }
+            .runner{
+                float:left;
+            }
+        </style>
+    <body>
+        {% for vainqueur in vainqueurs %}
+            <div class="container">
+            <br>
+            <img class="runner" src="{{ absolute_url(asset('images/runner-svgrepo-com.svg')) }}" alt="logo-runner" width="80px">
+            <img class="medal" src="{{ absolute_url(asset('images/medal-medal-svgrepo-com.svg')) }}" width="100px" alt="medal of honor"/>
+                <div class="logo">
+                    <em>ULTIMATE TEAM RACE</em>
+                </div>
+
+                <div class="marquee">
+                    Gagnant de la cat&eacute;gorie "<strong>{{ categorie|capitalize }}</strong>"
+                </div>
+
+                <div class="assignment">
+                    Ce certificat et d&eacute;die a l'&eacute;quipe
+                </div>
+
+                <div class="person">
+                    {{ vainqueur['nom_equipe'] }}
+                </div>
+
+                <div class="reason">
+                    Remportant la course sur un score de <strong>{{ vainqueur['score'] }}</strong>
+                </div>
+            </div>
+            <br> <br>
+        {% endfor %}
+    </body>
+</html>

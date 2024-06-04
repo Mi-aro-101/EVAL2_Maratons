@@ -1,9 +1,108 @@
-{# {% extends 'base.html.twig' %} #}
-
-{% block title %}Log in!{% endblock %}
-
 {% block body %}
-<form action={{ path('app_login_client') }} method="post">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% block stylesheets %}
+      <!-- plugins:css -->
+      <link rel="stylesheet" href="{{ asset('vendors/feather/feather.css') }}">
+      <link rel="stylesheet" href="{{ asset('vendors/ti-icons/css/themify-icons.css') }}">
+      <link rel="stylesheet" href="{{ asset('vendors/css/vendor.bundle.base.css') }}">
+      <!-- endinject -->
+      <!-- Plugin css for this page -->
+      <link rel="stylesheet" href="{{ asset('vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
+      <link rel="stylesheet" href="{{ asset('vendors/ti-icons/css/themify-icons.css') }}">
+      <link rel="stylesheet" type="text/css" href="{{ asset('js/select.dataTables.min.css') }}">
+      <!-- End plugin css for this page -->
+      <!-- inject:css -->
+      <link rel="stylesheet" href="{{ asset('css/vertical-layout-light/style.css') }}">
+      <!-- endinject -->
+      <link rel="shortcut icon" href="{{ asset('images/main-logo.jpg') }}" />
+    {% endblock %}
+</head>
+
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div class="brand-logo">
+                <center><img src="{{ asset('images/login-rep.svg') }}" alt="logo"></center>
+              </div>
+              <h4>Hello ! Bon retour chez nous</h4>
+              {% for type, message in app.flashes %}
+                  <div class="alert alert-{{ type }}">
+                  {{ message| join('. ') }}
+                  </div>
+              {% endfor %}
+              <form class="pt-3" method='post'>
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                  <input type="text" value="{{ last_username }}" name='email' class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email">
+                </div>
+                <div class="form-group">
+                  <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Mot de passe">
+                </div>
+                <div class="mt-3">
+                  <button class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" type="submit">Se connecter</button>
+                </div>
+                <div class="text-center mt-4 font-weight-light">
+                  Pas encore de compte ? <a href="{{ path('app_register') }}" class="text-primary">S'inscrire</a>
+                </div>
+                <input type="hidden" name="_csrf_token"
+                    value="{{ csrf_token('authenticate') }}"
+                >
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  {% block javascripts %}
+<!-- plugins:js -->
+  <script src=" {{ asset('vendors/js/vendor.bundle.base.js') }}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="{{ asset('vendors/chart.js/Chart.min.js') }}"></script>
+  <script src="{{ asset('vendors/datatables.net/jquery.dataTables.js') }}"></script>
+  <script src="{{ asset('vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
+  <script src="{{ asset('js/dataTables.select.min.js') }}"></script>
+
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="{{ asset('js/off-canvas.js') }}"></script>
+  <script src="{{ asset('js/hoverable-collapse.js') }}"></script>
+  <script src="{{ asset('js/template.js') }}"></script>
+  <script src="{{ asset('js/settings.js') }}"></script>
+  <script src="{{ asset('js/todolist.js') }}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="{{ asset('js/dashboard.js') }}"></script>
+  <script src="{{ asset('js/Chart.roundedBarCharts.js') }}"></script>
+  <!-- End custom js for this page-->
+{% endblock %}
+  <!-- endinject -->
+</body>
+
+</html>
+
+{# <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -15,8 +114,10 @@
     {% endif %}
 
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputTelephone">Telephone</label>
-    <input type="text" value="{{ last_username }}" name="telephone" id="inputTelephone" class="form-control" autocomplete="username" required autofocus>
+    <label for="inputEmail">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
@@ -25,5 +126,5 @@
     <button class="btn btn-lg btn-primary" type="submit">
         Sign in
     </button>
-</form>
+</form> #}
 {% endblock %}

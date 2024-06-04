@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ClassementCategorie{% endblock %}
+
+{% block body %}
+    <h1>ClassementCategorie</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ classement_categorie.id }}</td>
+            </tr>
+            <tr>
+                <th>Rang</th>
+                <td>{{ classement_categorie.rang }}</td>
+            </tr>
+            <tr>
+                <th>Point</th>
+                <td>{{ classement_categorie.point }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_classement_categorie_index') }}">back to list</a>
+
+    <a href="{{ path('app_classement_categorie_edit', {'id': classement_categorie.id}) }}">edit</a>
+
+    {{ include('classement_categorie/_delete_form.html.twig') }}
+{% endblock %}

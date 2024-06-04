@@ -1,0 +1,41 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Penalite index{% endblock %}
+
+{% block body %}
+    <h1>Liste des penalites</h1>
+    {% for type, message in app.flashes %}
+        <div class="alert alert-{{ type }}">
+            {{ message| join('. ') }}
+        </div>
+    {% endfor %}
+
+    <a href="{{ path('app_penalite_new') }}"><button class="btn btn-warning">Affecter une penalite</button></a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Etape</th>
+                <th>Equipes</th>
+                <th>Temps</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for penalite in penalites %}
+            <tr>
+                <td>{{ penalite.etapeCourse.nomEtape }}</td>
+                <td>{{ penalite.equipe.nomEquipe }}</td>
+                <td>{{ penalite.temps }}</td>
+                <td>
+                    <a href="{{ path('app_penalite_show', {'id': penalite.id}) }}"><button class="btn btn-danger btn-rounded btn-fw"><i class="mdi mdi-delete"></i></button></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

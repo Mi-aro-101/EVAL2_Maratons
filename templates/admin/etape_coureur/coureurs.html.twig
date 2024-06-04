@@ -1,0 +1,36 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}EtapeCoureur{% endblock %}
+
+{% block body %}
+<div class="row">
+    <h3>Course : <strong>{{ etape_course.course.nomCourse }} </strong> <strong>{{ etape_course.nomEtape }} </strong></h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Coureur</th>
+                <th>Equipe</th>
+                <th>Arrivee</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for etape_coureur in etape_coureurs %}
+            <tr>
+                <td>{{ etape_coureur.coureur.nomCoureur }}</td>
+                <td>{{ etape_coureur.coureur.equipe.nomEquipe }}</td>
+                <td>{{ etape_coureur.arrivee ? etape_coureur.arrivee|date('Y-m-d H:i:s') : 'En cours ...' }}</td>
+                <td>
+                    <a href="{{ path('app_etape_coureur_edit', {'id': etape_coureur.id}) }}"><button class="btn btn-success">Affecter temps</button></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Pas de coureurs a afficher</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

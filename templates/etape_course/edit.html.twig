@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit EtapeCourse{% endblock %}
+
+{% block body %}
+    <h1>Edit EtapeCourse</h1>
+
+    {{ include('etape_course/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_etape_course_index') }}">back to list</a>
+
+    {{ include('etape_course/_delete_form.html.twig') }}
+{% endblock %}

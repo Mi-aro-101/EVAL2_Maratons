@@ -3,20 +3,26 @@
 
 <head>
   <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Skydash Admin</title>
-  <!-- plugins:css -->
-  <link rel="stylesheet" href="../../vendors/feather/feather.css">
-  <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
-  <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- Plugin css for this page -->
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="../../css/vertical-layout-light/style.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="../../images/favicon.png" />
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Maratons</title>
+
+    {% block stylesheets %}
+      <!-- plugins:css -->
+      <link rel="stylesheet" href="{{ asset('vendors/feather/feather.css') }}">
+      <link rel="stylesheet" href="{{ asset('vendors/ti-icons/css/themify-icons.css') }}">
+      <link rel="stylesheet" href="{{ asset('vendors/css/vendor.bundle.base.css') }}">
+      <!-- endinject -->
+      <!-- Plugin css for this page -->
+      <link rel="stylesheet" href="{{ asset('vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
+      <link rel="stylesheet" href="{{ asset('vendors/ti-icons/css/themify-icons.css') }}">
+      <link rel="stylesheet" type="text/css" href="{{ asset('js/select.dataTables.min.css') }}">
+      <!-- End plugin css for this page -->
+      <!-- inject:css -->
+      <link rel="stylesheet" href="{{ asset('css/vertical-layout-light/style.css') }}">
+      <!-- endinject -->
+      <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" />
+    {% endblock %}
 </head>
 
 <body>
@@ -30,13 +36,8 @@
                 <h1 class="display-1 mb-0">{{ status }}</h1>
               </div>
               <div class="col-lg-6 error-page-divider text-lg-left pl-lg-4">
-                <h2>SORRY!</h2>
-                <h3 class="font-weight-light">{{ message }}.</h3>
-              </div>
-            </div>
-            <div class="row mt-5">
-              <div class="col-12 text-center mt-xl-2">
-                <a class="text-white font-weight-medium" href="../../index.html">Back to home</a>
+                <h2>D&eacute;sol&eacute; !</h2>
+                <h3 class="font-weight-light">{{ message }}</h3>
               </div>
             </div>
             <div class="row mt-5">
@@ -51,19 +52,30 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
-  <!-- container-scroller -->
-  <!-- plugins:js -->
-  <script src="../../vendors/js/vendor.bundle.base.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page -->
-  <!-- End plugin js for this page -->
-  <!-- inject:js -->
-  <script src="../../js/off-canvas.js"></script>
-  <script src="../../js/hoverable-collapse.js"></script>
-  <script src="../../js/template.js"></script>
-  <script src="../../js/settings.js"></script>
-  <script src="../../js/todolist.js"></script>
   <!-- endinject -->
 </body>
 
 </html>
+{% block javascripts %}
+<!-- plugins:js -->
+  <script src=" {{ asset('vendors/js/vendor.bundle.base.js') }}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="{{ asset('vendors/chart.js/Chart.min.js') }}"></script>
+  <script src="{{ asset('vendors/datatables.net/jquery.dataTables.js') }}"></script>
+  <script src="{{ asset('vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
+  <script src="{{ asset('js/dataTables.select.min.js') }}"></script>
+
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="{{ asset('js/off-canvas.js') }}"></script>
+  <script src="{{ asset('js/hoverable-collapse.js') }}"></script>
+  <script src="{{ asset('js/template.js') }}"></script>
+  <script src="{{ asset('js/settings.js') }}"></script>
+  <script src="{{ asset('js/todolist.js') }}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="{{ asset('js/dashboard.js') }}"></script>
+  <script src="{{ asset('js/Chart.roundedBarCharts.js') }}"></script>
+  <!-- End custom js for this page-->
+{% endblock %}

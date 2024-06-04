@@ -1,0 +1,59 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}New Penalite{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+
+    <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Affectation de penalite</h4>
+            {{ form_start(form) }}
+            <div class="form-group">
+                <label for="exampleSelectGender">Etape de course</label>
+                <select class="form-control" name="{{ field_name(form.etapeCourse) }}" id="exampleSelectGender">
+                {% for label, value in field_choices(form.etapeCourse) %}
+                    <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleSelectGender">Equipe</label>
+                <select class="form-control" name="{{ field_name(form.equipe) }}" id="exampleSelectGender">
+                    {% for label, value in field_choices(form.equipe) %}
+                        <option value="{{ value }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group row">
+                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Heure</label>
+                <div class="col-sm-9">
+                <input type="number" name="heure" class="form-control" id="exampleInputUsername2" placeholder="Heure" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Minute</label>
+                <div class="col-sm-9">
+                <input type="number" name="minute" class="form-control" id="exampleInputUsername2" placeholder="Minute" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Seconde</label>
+                <div class="col-sm-9">
+                <input type="number" name="seconde" class="form-control" id="exampleInputUsername2" placeholder="Seconde" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-warning mr-2">Affecter</button>
+            {{ form_end(form) }}
+
+        </div>
+        </div>
+    </div>
+
+    </div>
+    {# {{ include('penalite/_form.html.twig') }} #}
+
+    <a href="{{ path('app_penalite_index') }}"><button class="btn btn-outline-info btn-fw">Retour a la liste</button></a>
+{% endblock %}

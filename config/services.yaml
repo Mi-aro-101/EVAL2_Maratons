@@ -6,16 +6,6 @@
 parameters:
 
 services:
-    App\Security\AccessDeniedHandler:
-        tags:
-            - { name: security.access_denied_handler }
-
-    App\Security\AccessDeniedListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.exception }
-        # Inject AccessDeniedHandler (optional)
-        arguments:
-            - '@App\Security\AccessDeniedHandler'
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.

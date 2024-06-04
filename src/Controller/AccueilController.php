@@ -12,17 +12,7 @@ class AccueilController extends AbstractController
     public function index(): Response
     {
         return $this->render('accueil/index.html.twig', [
-            'controller_name' => 'Mr/Mme',
-            'idPage' => 1
-        ]);
-    }
-
-    #[Route('/accueil/admin', name: 'app_admin_accueil')]
-    public function indexAdmin(): Response
-    {
-        return $this->render('accueil/index_admin.html.twig', [
-            'controller_name' => 'Admin',
-            'idPage' => 1
+            'controller_name' => 'AccueilController',
         ]);
     }
 }

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EtapeCourse index{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <h1>Liste des etapes de course</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Etape</th>
+                    <th>Nombre de coureur</th>
+                    <th>Longueur</th>
+                    <th>Depart</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for etape_course in etape_courses %}
+                <tr>
+                    <td>{{ etape_course.nomEtape }}</td>
+                    <td>{{ etape_course.nbrCoureur }}</td>
+                    <td>{{ etape_course.longueur }}</td>
+                    <td>{{ etape_course.depart ? etape_course.depart|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        <a href="{{ path('app_etape_coureur_new', {'id': etape_course.id}) }}"><button class="btn btn-warning">Assigner</button></a>
+                        <a href="{{ path('app_etape_coureur_equipe', {'id': etape_course.id}) }}"><button class="btn btn-info">Voir Coureur</button></a>
+                        {# <a href="{{ path('app_etape_course_edit', {'id': etape_course.id}) }}">edit</a> #}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">Pas d'etapes pour cette course</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <hr>
+        <a href="{{ path('app_course_index') }}"><button class="btn btn-inverse-info btn-fw">Retour</button></a>
+
+        {{ knp_pagination_render(etape_courses) }}
+
+    </div>
+{% endblock %}

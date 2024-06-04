@@ -49,8 +49,12 @@ class UtilisateurAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        if ($this->authorizationchecker->isGranted('ROLE_ADMIN')) {
-            return new RedirectResponse($this->urlGenerator->generate('app_admin_accueil'));
+        if ($this->authorizationchecker->isGranted('ROLE_TEAM')) {
+            return new RedirectResponse($this->urlGenerator->generate('app_course_index'));
+        }
+
+        else if ($this->authorizationchecker->isGranted('ROLE_ADMIN')) {
+            return new RedirectResponse($this->urlGenerator->generate('app_course_index'));
         }
 
         // For example:

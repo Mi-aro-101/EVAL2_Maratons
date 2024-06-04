@@ -1,0 +1,11 @@
+Generation de categorie :
+    ☐ Function that insert new categories (junior, homme, femme)
+    ☐ FindAll Coureur
+    Checking :
+        ☐ if now()-datedenaissance < 18 ans => junior
+        ☐ if coureur.genre = 'M' => homme
+        ☐ else if coureur.genre = 'F' => femme
+
+EXAMPLE : 
+    Coureur 246 => 1er (junior) / etape 107
+    Coureur 229 => 2e (junior) / etape 104

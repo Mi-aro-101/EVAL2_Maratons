@@ -1,0 +1,24 @@
+Inona avy ny atao @ import ?
+
+We have :
+    etape :
+        ☐ nom_etape
+        ☐ longueur
+        ☐ nbr_coureur
+        ☐ Rang de l'etape
+        ☐ depart (date_heure)
+    points :
+        ☐ classement
+        ☐ points
+    resultats :
+        etape :
+            ☐ etape_rang
+        coureur :
+            ☐ numero_dossard
+            ☐ nom_coureur
+            ☐ genre_coureur
+            ☐ date de naissance coureur
+        equipe :
+            ☐ equipe
+        etape_coureur :
+            ☐ arrivee
