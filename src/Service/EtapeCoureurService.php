@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\EtapeCoureur;
 use App\Entity\EtapeCourse;
+use App\Entity\Equipe;
 use App\Repository\CoureurRepository;
 use App\Repository\EtapeCoureurRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,17 +22,20 @@ class EtapeCoureurService
         return $resultSet->fetchAllAssociative();
     }
 
-    public function control(Request $request, EtapeCourse $etapeCourse, EtapeCoureurRepository $etapeCoureurRepository)
+    public function control(Request $request, EtapeCourse $etapeCourse, EtapeCoureurRepository $etapeCoureurRepository, Equipe $equipe)
     {
         $nbrCoureurRequis = $etapeCourse->getNbrCoureur();
         $coureursSelectiones = $request->request->all()['coureur'];
         // Check if there is already a coreur assigned to this
-        $etapeCoureur = $etapeCoureurRepository->findCoureurAssignee($coureursSelectiones, $etapeCourse);
+        $etapeCoureur = $etapeCoureurRepository->findCoureurIfCoureurDejaAssignee($coureursSelectiones, $etapeCourse->getId());
         if(count($etapeCoureur) > 0){
-            throw new BadRequestException('Vous avez deja assigne un coureur pour cette etape');
+            throw new BadRequestException('Vous avez deja assigne ce/ces coureur pour cette etape');
         }
+
+        $etapeCoureursInscrits = $etapeCoureurRepository->findCoureurByEquipeAndEtape($equipe, $etapeCourse);
+
         if(is_array($coureursSelectiones)){
-            if(count($coureursSelectiones) > $nbrCoureurRequis){
+            if(count($coureursSelectiones)+count($etapeCoureursInscrits) > $nbrCoureurRequis){
                 throw new BadRequestException("Le nombre de coureur que vous avez selectionnees n'est pas valide pour cette etape");
             }
         }

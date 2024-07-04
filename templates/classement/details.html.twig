@@ -1,0 +1,26 @@
+{% extends head %}
+
+{% block title %}Classement general{% endblock %}
+
+{% block body %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Equipe</th>
+            <th>Etape</th>
+            <th>Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for classement in classements %}
+            <tr>
+                <td>{{ classement['nom_equipe'] }}</td>
+                <td>{{ classement['nom_etape'] }}</td>
+                <td>{{ classement['score'] }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

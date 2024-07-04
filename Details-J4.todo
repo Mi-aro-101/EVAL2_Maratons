@@ -1,0 +1,19 @@
+Affectation coureur->etape :
+    Amboarina design :
+        Alaina etape rehetra + coureurs rehetra nanao t@ io % utilisateur/equipe
+        Alefa any @ twig
+        Double boucle pour afficher etape ==> coureurs anatiny (de l'utilisateur/equipe)
+
+        Mila ovaina view sy table classement/classement_categorie
+        Classement/ClassementCategorie mila ny
+            _genre du coureur
+            _Chrono => temps de parcours
+            _penalite (temps)
+            _temps final (Misy penalite io ry tavany an)
+
+affect color
+double boucle
+for(equipe)
+    for(equipe)
+        if(equipe.rang = equipe.rang)
+            color[equipe.rang] = 'red'

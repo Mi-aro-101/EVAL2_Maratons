@@ -21,6 +21,19 @@ class ClassementRepository extends ServiceEntityRepository
         parent::__construct($registry, Classement::class);
     }
 
+    public function findByEquipeAndEtape($equipe, $etapeCourse) : array
+    {
+        return $this->createQueryBuilder('c')
+        ->innerJoin('c.coureur', 'cc')
+        ->andWhere('cc.equipe = :val')
+        ->setParameter('val', $equipe->getId())
+        ->andWhere('c.etapeCourse = :val2')
+        ->setParameter('val2', $etapeCourse)
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Classement[] Returns an array of Classement objects
 //     */

@@ -45,28 +45,30 @@
                 <code>Par equipe</code>
                 </p>
                 <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Rang</th>
-                        <th>Equipe</th>
-                        <th>Point total</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for classement in classements %}
-                        <tr>
-                            <td>{{ classement['rang'] }}</td>
-                            <td>{{ classement['nom_equipe'] }}</td>
-                            <td>{{ classement['score'] }}</td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="4">Pas de classement a afficher</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                  <table class="table table-striped">
+                      <thead>
+                      <tr>
+                          <th>Rang</th>
+                          <th>Equipe</th>
+                          <th>Point total</th>
+                          <th>Details</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      {% for classement in classements %}
+                          <tr style="background-color : {{ color[classement['rang']]|default('non') }};">
+                              <td>{{ classement['rang'] }}</td>
+                              <td>{{ classement['nom_equipe'] }}</td>
+                              <td>{{ classement['score'] }}</td>
+                              <td><a href="{{ path('app_details_equipe_classement', {'nomEquipe' : classement['nom_equipe']}) }}"><button class="btn btn-outline-primary btn-fw">Details</button></a></td>
+                          </tr>
+                      {% else %}
+                          <tr>
+                              <td colspan="4">Pas de classement a afficher</td>
+                          </tr>
+                      {% endfor %}
+                      </tbody>
+                  </table>
                 </div>
             </div>
         </div>
@@ -101,7 +103,6 @@
     label_score.push('{{ classos['score'] }}');
   {% endfor %}
 
-  {# function createChart(id, type, options) { #}
       var data = {
         labels: label_equipe,
         datasets: [
@@ -119,8 +120,6 @@
           }
         ]
       };
-
-    {# } #}
 
   var options = {
         responsive: true,

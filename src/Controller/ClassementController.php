@@ -23,6 +23,21 @@ use Symfony\Component\Routing\Attribute\Route;
 class ClassementController extends AbstractController
 {
 
+    #[Route('/details/par/equipe/etape', name: 'app_details_equipe_classement', methods: ['GET'])]
+    public function getDetailsParEtape(Request $request, EntityManagerInterface $entityManager, ClassementService $classementService) : Response
+    {
+        $head = 'base.html.twig';
+        if(in_array('ROLE_ADMIN', $this->getUser()->getRoles()))
+            $head = "admin/base.html.twig";
+        $nomEquipe = $request->query->get('nomEquipe');
+        $datas = $classementService->getDetailsClassementParEtape($entityManager, $nomEquipe);
+        // dd($datas);
+        return $this->render('classement/details.html.twig', [
+            'classements' => $datas,
+            'head' => $head,
+        ]);
+    }
+
     #[Route('voir/certificat/vainqueur', name:'app_voir_certificat_vainqueur', methods: ['GET'])]
     public function voirCertificat(Request $request, ClassementCategorieService $classementCategorieService, 
         ClassementService $classementService, EntityManagerInterface $entityManager, CategorieCoureurRepository $categorieCoureurRepository) : Response
@@ -63,7 +78,7 @@ class ClassementController extends AbstractController
         // ]);
     }
 
-    #[Route('voir/equipe', name: 'app_voir_classement_par_equipe')]
+    #[Route('/voir/equipe', name: 'app_voir_classement_par_equipe')]
     public function voirClassementParEquipe(EntityManagerInterface $entityManager, ClassementService $classementService,
         CategorieCoureurRepository $categorieCoureurRepository): Response
     {
@@ -110,7 +125,9 @@ public function voirClassementParEtape(EtapeCourse $etapeCourse, ClassementRepos
         $head = 'base.html.twig';
         if(in_array('ROLE_ADMIN', $this->getUser()->getRoles()))
             $head = "admin/base.html.twig";
-        $course = $courseRepository->findByNomCourse('Course')[0];
+        $courseobj = $courseRepository->findByNomCourse('Course');
+        if(count($courseobj) > 0) $course = $courseobj[0];
+        else $course = null;
         $etapesCourse = $etapeCourseRepository->findByCourse($course);
         return $this->render('classement/etape_course.html.twig', [
             'idPage' => 6,

@@ -54,6 +54,23 @@ class EtapeCourse
     private Collection $classementCategories;
 
     /**
+     * 
+     */
+    private ?array $classementsEquipe;
+
+    public function getClassementsEquipe() : array
+    {
+        return $this->classementsEquipe;
+    }
+
+    public function setClassementsEquipe(?array $classementsEquipe) : static
+    {
+        $this->classementsEquipe = $classementsEquipe;
+
+        return $this;
+    }
+
+    /**
      * @var Collection<int, Penalite>
      */
     #[ORM\OneToMany(targetEntity: Penalite::class, mappedBy: 'etapeCourse', orphanRemoval: true)]

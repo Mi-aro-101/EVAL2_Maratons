@@ -34,6 +34,11 @@ class DatabaseController extends AbstractController
                 $connection->executeUpdate($platform->getTruncateTableSQL($table, true));
             }
         }
+        // Delete all user unless admin
+        $sql = "DELETE FROM Utilisateur WHERE id != 4";
+        $stmt = $entityManager->getConnection()->prepare($sql);
+        $stmt->executeQuery();
+
         $this->addFlash('success','Base de données réinitialisée');
 
         return $this->redirectToRoute('app_login');

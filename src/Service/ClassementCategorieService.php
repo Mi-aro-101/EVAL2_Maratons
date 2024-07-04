@@ -48,9 +48,10 @@ class ClassementCategorieService
         $truncateSql = "TRUNCATE TABLE classement_categorie";
         $entityManager->getConnection()->executeQuery($truncateSql);
 
-        $sql = "INSERT INTO classement_categorie (id, coureur_id, etape_course_id, categorie_coureur_id, rang, point)
-            SELECT nextval('classement_categorie_id_seq'), vcc.coureur_id, vcc.etape, vcc.categorie_coureur_id, vcc.rang, vcc.point
-                FROM v_classement_categorie vcc";
+        $sql = "INSERT INTO classement_categorie (id, coureur_id, etape_course_id, categorie_coureur_id, rang, point, genre, temps, penalite_temps, temps_final)
+            SELECT nextval('classement_categorie_id_seq'), vcc.coureur_id, vcc.etape, vcc.categorie_coureur_id, vcc.rang, vcc.point,
+                vcc.genre, vcc.temps, vcc.penalite_temps, vcc.temps_final
+                FROM v_classement_categorie2 vcc";
         $entityManager->getConnection()->executeQuery($sql);
     }
 }

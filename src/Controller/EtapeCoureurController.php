@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use App\Service\ClassementCategorieService;
+use App\Service\ClassementService;
 
 #[Route('/etape/coureur')]
 class EtapeCoureurController extends AbstractController
@@ -62,15 +64,32 @@ class EtapeCoureurController extends AbstractController
     #[Route('/assigner/coureur', name:'assigner_coureur', methods: ['POST'])]
         public function assigner(Request $request, EtapeCourseRepository $etapeCourseRepository,
             EtapeCoureurService $etapeCoureurService, EntityManagerInterface $entityManager,
-            CoureurRepository $coureurRepository, EtapeCoureurRepository $etapeCoureurRepository) : Response
+            CoureurRepository $coureurRepository, EtapeCoureurRepository $etapeCoureurRepository,
+            ClassementService $classementService, ClassementCategorieService $classementCategorieService) : Response
         {
             $etapeCourse = $request->request->get('etape_course');
             $etapeCourse = $etapeCourseRepository->find($etapeCourse);
-            $etapeCoureurService->control($request, $etapeCourse, $etapeCoureurRepository);
-            $etapeCoureurService->flushAll($etapeCourse, $entityManager, $request, $coureurRepository);
+            $equipe = $this->getUser()->getEquipe();
+            try{    
+                $etapeCoureurService->control($request, $etapeCourse, $etapeCoureurRepository, $equipe);
+                $etapeCoureurService->flushAll($etapeCourse, $entityManager, $request, $coureurRepository);
+            }catch(\Exception $e){
+                $this->addFlash(
+                   'danger',
+                   $e->getMessage()
+                );
+                return $this->redirectToRoute('app_etape_coureur_new', ['id' => $etapeCourse->getId()], Response::HTTP_SEE_OTHER);
+            }
 
+            $this->addFlash(
+                'success',
+                'Assignation du coureur reussi'
+             );
+             // Pour que le changement prenne compte
+            $classementService->genererClassement($entityManager);
+            $classementCategorieService->genererClassementCategorie($entityManager);
             // return $this->redirectToRoute('app_etape_course_by_course', ['id' => $etapeCourse->getId()], Response::HTTP_SEE_OTHER);
-            return $this->redirectToRoute('app_etape_coureur_equipe', ['id' => $etapeCourse->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_etape_coureur_new', ['id' => $etapeCourse->getId()], Response::HTTP_SEE_OTHER);
         }
 
     #[Route('/new/{id}', name: 'app_etape_coureur_new', methods: ['GET', 'POST'])]

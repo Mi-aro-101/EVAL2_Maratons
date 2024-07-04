@@ -28,12 +28,19 @@ class ClassementCategorieController extends AbstractController
         $categorieid = $request->request->get('categorie');
         $categorie = $categorieCoureurRepository->find($categorieid);
         $classements = $classementCategorieService->getClassementEquipeByCategorie($entityManager, $categorieid);
+        $color = [];
+        for($i = 0 ; $i < count($classements)-1 ; $i++){
+            if($classements[$i]['rang'] == $classements[$i+1]['rang']){
+                $color[$classements[$i]['rang']] = 'yellow';
+            }
+        }
         return $this->render('classement/equipe.html.twig', [
             'idPage' => 6,
             'head' => $head,
             'classements' => $classements,
             'categorie' => $categorie->getNomCategorie(),
-            'categorie_coureurs' => $categorieCoureurRepository->findAll()
+            'categorie_coureurs' => $categorieCoureurRepository->findAll(),
+            'color' => $color
         ]);
     }
 

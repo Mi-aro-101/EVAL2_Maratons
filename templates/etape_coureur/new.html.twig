@@ -14,6 +14,11 @@
                     <h4 class="card-title"><strong>{{ etape_coureur.etapeCourse.nomEtape }}</strong>
                         de la course <strong>{{ etape_coureur.etapeCourse.course.nomCourse }}</strong>
                      </h4>
+                     {% for type, message in app.flashes %}
+                        <div class="alert alert-{{ type }}">
+                            {{ message| join('. ') }}
+                        </div>
+                    {% endfor %}
                     <form class="forms-sample" name="etape_coureur" method="post" action="{{ path('assigner_coureur') }}">
                         <div class="form-group">
                             <input type="hidden" name="etape_course" value="{{ etape_coureur.etapeCourse.id }}">

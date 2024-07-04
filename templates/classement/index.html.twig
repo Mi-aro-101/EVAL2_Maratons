@@ -38,6 +38,10 @@
                 <th>Coureur</th>
                 <th>Rang</th>
                 <th>Point</th>
+                <th>Genre</th>
+                <th>Chrono</th>
+                <th>Penalite</th>
+                <th>Temps final</th>
             </tr>
         </thead>
         <tbody>
@@ -47,6 +51,10 @@
                 <td>{{ classement.coureur.nomCoureur }}</td>
                 <td>{{ classement.rang }}</td>
                 <td>{{ classement.point }}</td>
+                <td>{{ classement.coureur.genre }}</td>
+                <td>{{ classement.temps }}</td>
+                <td>{{ classement.penaliteTemps}}</td>
+                <td>{{ classement.tempsFinal }}</td>
             </tr>
         {% else %}
             <tr>

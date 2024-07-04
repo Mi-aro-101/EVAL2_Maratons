@@ -25,12 +25,19 @@ class EtapeCoureurRepository extends ServiceEntityRepository
      * Find all those coureur if they are already assigned to this etape
      * @return EtapeCoureur[]
      */
-    public function findCoureurAssignee($coureurs, $etapeCourse) : array
+    public function findCoureurIfCoureurDejaAssignee($coureurs, $etapeCourse) : array
     {
         $queryBuilder = $this->createQueryBuilder('c');
+        // dd($queryBuilder
+        //     ->select('c')
+        //     ->andWhere($queryBuilder->expr()->in('c.coureur', $coureurs))
+        //     ->andWhere('c.etapeCourse = :val')
+        //     ->setParameter('val', $etapeCourse)
+        //     ->getQuery()
+        // );
         return $queryBuilder
         ->select('c')
-        ->andWhere($queryBuilder->expr()->in('c.id', $coureurs))
+        ->andWhere($queryBuilder->expr()->in('c.coureur', $coureurs))
         ->andWhere('c.etapeCourse = :val')
         ->setParameter('val', $etapeCourse)
         ->getQuery()
@@ -39,6 +46,15 @@ class EtapeCoureurRepository extends ServiceEntityRepository
 
     public function findCoureurByEquipeAndEtape($equipe, $etape) : array
     {
+        // dd($this->createQueryBuilder('ec')
+        //     ->innerJoin('ec.coureur', 'c')
+        //     ->andWhere('ec.etapeCourse = :val')
+        //     ->setParameter('val', $etape)
+        //     ->andWhere('c.equipe = :val2')
+        //     ->setParameter('val2', $equipe)
+        //     ->getQuery()
+        //     // ->getResult()
+        // );
         return $this->createQueryBuilder('ec')
         ->innerJoin('ec.coureur', 'c')
         ->andWhere('ec.etapeCourse = :val')

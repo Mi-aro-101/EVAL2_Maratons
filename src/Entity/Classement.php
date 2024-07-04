@@ -27,6 +27,18 @@ class Classement
     #[ORM\JoinColumn(nullable: false)]
     private ?EtapeCourse $etapeCourse = null;
 
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $genre = null;
+
+    #[ORM\Column(length: 155, nullable: true)]
+    private ?string $temps = null;
+
+    #[ORM\Column(length: 155, nullable: true)]
+    private ?string $penaliteTemps = null;
+
+    #[ORM\Column(length: 155, nullable: true)]
+    private ?string $tempsFinal = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +88,54 @@ class Classement
     public function setEtapeCourse(?EtapeCourse $etapeCourse): static
     {
         $this->etapeCourse = $etapeCourse;
+
+        return $this;
+    }
+
+    public function getGenre(): ?string
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(?string $genre): static
+    {
+        $this->genre = $genre;
+
+        return $this;
+    }
+
+    public function getTemps(): ?string
+    {
+        return $this->temps;
+    }
+
+    public function setTemps(string $temps): static
+    {
+        $this->temps = $temps;
+
+        return $this;
+    }
+
+    public function getPenaliteTemps(): ?string
+    {
+        return $this->penaliteTemps;
+    }
+
+    public function setPenaliteTemps(string $penaliteTemps): static
+    {
+        $this->penaliteTemps = $penaliteTemps;
+
+        return $this;
+    }
+
+    public function getTempsFinal(): ?string
+    {
+        return $this->tempsFinal;
+    }
+
+    public function setTempsFinal(string $tempsFinal): static
+    {
+        $this->tempsFinal = $tempsFinal;
 
         return $this;
     }

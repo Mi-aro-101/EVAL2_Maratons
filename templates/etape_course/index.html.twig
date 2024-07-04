@@ -3,10 +3,30 @@
 {% block title %}EtapeCourse index{% endblock %}
 
 {% block body %}
-    <div class="row">
-        <h1>Liste des etapes de course</h1>
+    {# <div class="row"> #}
+        {% for etape_course in etape_courses %}
+            <h3>{{ etape_course.nomEtape }} ({{ etape_course.longueur }} km) - {{ etape_course.nbrCoureur }} coureur(s)</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <th>Nom</th>
+                    <th>Chrono</th>
+                </thead>
+                <tbody>
+                    {% for classement in etape_course.getClassementsEquipe() %}
+                    <tr>
+                        <td>{{ classement.coureur.nomCoureur }}</td>
+                        <td>{{ classement.temps }}</td>
+                    </tr>
+                    {% endfor %}
+                    {# {% else %}
+                        Pas de donnees #}
+                </tbody>
+            </table>
+            <a href="{{ path('app_etape_coureur_new', {'id': etape_course.id}) }}"><button class="btn btn-warning">Ajouter coureur</button></a>
+            <hr>
+        {% endfor %}
 
-        <table class="table">
+        {# <table class="table">
             <thead>
                 <tr>
                     <th>Etape</th>
@@ -26,7 +46,6 @@
                     <td>
                         <a href="{{ path('app_etape_coureur_new', {'id': etape_course.id}) }}"><button class="btn btn-warning">Assigner</button></a>
                         <a href="{{ path('app_etape_coureur_equipe', {'id': etape_course.id}) }}"><button class="btn btn-info">Voir Coureur</button></a>
-                        {# <a href="{{ path('app_etape_course_edit', {'id': etape_course.id}) }}">edit</a> #}
                     </td>
                 </tr>
             {% else %}
@@ -40,7 +59,7 @@
         <hr>
         <a href="{{ path('app_course_index') }}"><button class="btn btn-inverse-info btn-fw">Retour</button></a>
 
-        {{ knp_pagination_render(etape_courses) }}
+        {{ knp_pagination_render(etape_courses) }} #}
 
-    </div>
+    {# </div> #}
 {% endblock %}

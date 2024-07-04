@@ -6,6 +6,7 @@ use App\Entity\Course;
 use App\Entity\EtapeCourse;
 use App\Form\EtapeCourseType;
 use App\Repository\EtapeCoureurRepository;
+use App\Repository\ClassementRepository;
 use App\Repository\EtapeCourseRepository;
 use App\Service\EtapeCourseService;
 use App\Service\ResultatService;
@@ -81,7 +82,8 @@ class EtapeCourseController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_etape_course_by_course', methods: ['GET', 'POST'])]
-    public function etapeByCourse(Course $course, Request $request, EtapeCourseRepository $etapeCourseRepository): Response
+    public function etapeByCourse(Course $course, Request $request, EtapeCourseRepository $etapeCourseRepository,
+        ClassementRepository $classementRepository): Response
     {
         if(in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
             return $this->redirectToRoute('app_etape_course_by_course_admin', ['id' => $course->getId()]);
@@ -90,6 +92,11 @@ class EtapeCourseController extends AbstractController
         $limit = 5;
         $etapeCourses = $etapeCourseRepository->paginateEtapeCourseByCourse($page, $limit, $course);
         $maxPage = ceil($etapeCourses->getTotalItemCount() / $limit);
+        $equipe = $this->getUser()->getEquipe();
+        foreach($etapeCourses as $etapeCourse){
+            $realClassements = $classementRepository->findByEquipeAndEtape($equipe, $etapeCourse);
+            $etapeCourse->setClassementsEquipe($realClassements);
+        }
         return $this->render('etape_course/index.html.twig', [
             'etape_courses' => $etapeCourses,
             'maxPage' => $maxPage,
